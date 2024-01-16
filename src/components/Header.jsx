@@ -32,9 +32,9 @@ class Header extends Component {
                   <a href="#depoimentos" class="nav-link"><b>Depoimentos</b></a>
                 </li>
               </ul>
-              <a class="btn btn-white btn-icon wow fadeIn" onclick="cardapio.metodos.abrirCarrinho(true)">
+              <a class="btn btn-white btn-icon wow fadeIn" onclick={''}>
                 Meu carrinho <span class="icon">
-                  <div class="container-total-carrinho badge-total-carrinho hidden">0</div>
+                  <div class="container-total-carrinho badge-total-carrinho hidden"></div>
                   <i class="fa fa-shopping-bag"></i>
                 </span>
               </a>
