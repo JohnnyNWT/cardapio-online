@@ -12,30 +12,30 @@ class Header extends Component {
             <a className="navbar-brand">
               <img src={ Logo } width="160" className="img-logo" />
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
-              <span class="navbar-toggler-icon">
-                <i class="fas fa-bars"></i>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+              <span className="navbar-toggler-icon">
+                <i className="fas fa-bars"></i>
               </span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav ml-auto mr-auto wow fadeIn">
-                <li class="nav-item">
-                  <a href="#reservas" class="nav-link"><b>Reservas</b></a>
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul className="navbar-nav ml-auto mr-auto wow fadeIn">
+                <li className="nav-item">
+                  <a href="#reservas" className="nav-link"><b>Reservas</b></a>
                 </li>
-                <li class="nav-item">
-                  <a href="#servicos" class="nav-link"><b>Serviços</b></a>
+                <li className="nav-item">
+                  <a href="#servicos" className="nav-link"><b>Serviços</b></a>
                 </li>
-                <li class="nav-item">
-                  <a href="#cardapio" class="nav-link"><b>Cardápio</b></a>
+                <li className="nav-item">
+                  <a href="#cardapio" className="nav-link"><b>Cardápio</b></a>
                 </li>
-                <li class="nav-item">
-                  <a href="#depoimentos" class="nav-link"><b>Depoimentos</b></a>
+                <li className="nav-item">
+                  <a href="#depoimentos" className="nav-link"><b>Depoimentos</b></a>
                 </li>
               </ul>
-              <a class="btn btn-white btn-icon wow fadeIn" onclick={''}>
-                Meu carrinho <span class="icon">
-                  <div class="container-total-carrinho badge-total-carrinho hidden"></div>
-                  <i class="fa fa-shopping-bag"></i>
+              <a className="btn btn-white btn-icon wow fadeIn" onclick={''}>
+                Meu carrinho <span className="icon">
+                  <div className="container-total-carrinho badge-total-carrinho hidden"></div>
+                  <i className="fa fa-shopping-bag"></i>
                 </span>
               </a>
             </div>
