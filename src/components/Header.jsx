@@ -20,9 +20,6 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <ul className="navbar-nav ml-auto mr-auto wow fadeIn">
                 <li className="nav-item">
-                  <a href="#reservas" className="nav-link"><b>Reservas</b></a>
-                </li>
-                <li className="nav-item">
                   <a href="#servicos" className="nav-link"><b>Serviços</b></a>
                 </li>
                 <li className="nav-item">

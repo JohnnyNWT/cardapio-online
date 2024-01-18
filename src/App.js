@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Servicos from "./components/Servicos";
-import './css/main.css'
 import Cardapio from "./components/Cardapio";
 import Depoimentos from "./components/Depoimentos";
+import Footer from "./components/Footer";
+import ModalCarrinho from "./components/ModalCarrinho";
+import './css/main.css'
 
 class App extends Component {
   render() {
@@ -15,6 +17,8 @@ class App extends Component {
         <Servicos />
         <Cardapio />
         <Depoimentos />
+        <Footer />
+        <ModalCarrinho />
       </div>
     )
   }
