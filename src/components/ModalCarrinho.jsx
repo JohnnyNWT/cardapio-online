@@ -24,55 +24,7 @@ class ModalCarrinho extends Component {
         <div className="m-body">
           <div className="container">
 
-            <div id="itensCarrinho" className="row mr-0 ml-0 animated fadeIn">
-
-              <div className="col-12 item-carrinho">
-                <div className="img-produto">
-                  <img src={imgProduto} alt="" />
-                </div>
-                <div className="dados-produto">
-                  <p className="title-produto"><b>Nome do produto</b></p>
-                  <p className="price-produto"><b>R$ 150,00</b></p>
-                </div>
-                <div className="add-carrinho">
-                  <span className="btn-menos"><i className="fas fa-minus"></i></span>
-                  <span className="add-numero-itens">0</span>
-                  <span className="btn-mais"><i className="fas fa-plus"></i></span>
-                  <span className="btn btn-remove"><i className="fa fa-times"></i></span>
-                </div>
-              </div>
-
-              <div className="col-12 item-carrinho">
-                <div className="img-produto">
-                  <img src={imgProduto} alt="" />
-                </div>
-                <div className="dados-produto">
-                  <p className="title-produto"><b>Nome do produto</b></p>
-                  <p className="price-produto"><b>R$ 150,00</b></p>
-                </div>
-                <div className="add-carrinho">
-                  <span className="btn-menos"><i className="fas fa-minus"></i></span>
-                  <span className="add-numero-itens">0</span>
-                  <span className="btn-mais"><i className="fas fa-plus"></i></span>
-                  <span className="btn btn-remove"><i className="fa fa-times"></i></span>
-                </div>
-              </div>
-
-              <div className="col-12 item-carrinho">
-                <div className="img-produto">
-                  <img src={imgProduto} alt="" />
-                </div>
-                <div className="dados-produto">
-                  <p className="title-produto"><b>Nome do produto</b></p>
-                  <p className="price-produto"><b>R$ 150,00</b></p>
-                </div>
-                <div className="add-carrinho">
-                  <span className="btn-menos"><i className="fas fa-minus"></i></span>
-                  <span className="add-numero-itens">0</span>
-                  <span className="btn-mais"><i className="fas fa-plus"></i></span>
-                  <span className="btn btn-remove"><i className="fa fa-times"></i></span>
-                </div>
-              </div>
+            <div id="itensCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
 
               <div className="col-12 item-carrinho">
                 <div className="img-produto">
@@ -179,7 +131,7 @@ class ModalCarrinho extends Component {
 
             </div>
 
-            <div id="resumoCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
+            <div id="resumoCarrinho" className="row mr-0 ml-0 animated fadeIn ">
               <div className="col-12">
                 <p className="title-carrinho mt-4">
                   <b>Itens do pedido:</b>
@@ -188,6 +140,23 @@ class ModalCarrinho extends Component {
 
               <div className="col-12">
                 <div className="row" id="listaItensResumo">
+
+                  <div className="col-12 item-carrinho resumo">
+                    <div className="img-produto-resumo">
+                      <img src={ imgProduto } alt=''/>
+                    </div>
+                    <div className="dados-produto">
+                      <p className="title-produto-resumo">
+                        <b>Nome do produto</b>
+                      </p>
+                      <p className="price-produto-resumo">
+                        <b>R$ 100,00</b>
+                      </p>
+                    </div>
+                    <p className="quantidade-produto-resumo">
+                      x <b>3</b>
+                    </p>
+                  </div>
 
                 </div>
               </div>
@@ -204,9 +173,11 @@ class ModalCarrinho extends Component {
                 </div>
                 <div className="dados-produto">
                   <p className="texto-endereco">
-                    <b id="resumoEndereco"></b>
+                    <b id="resumoEndereco">Av. Severino Clemente de Arruda</b>
                   </p>
-                  <p className="cidade-endereco" id="cidadeEndereco"></p>
+                  <p className="cidade-endereco" id="cidadeEndereco">
+                    Cidade-Surubim / 55750000
+                  </p>
                 </div>
               </div>
 
