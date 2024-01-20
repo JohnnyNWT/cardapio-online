@@ -4,7 +4,7 @@ import imgProduto from '../img/cardapio/burguers/Gramercy-Tavern-Burger-and-Kiel
 class ModalCarrinho extends Component {
   render() {
     return (
-      <div className="modal-full animated fadeIn" id="modalCarrinho">
+      <div className="modal-full animated fadeIn hidden" id="modalCarrinho">
         <div className="m-header">
           <div className="container">
             <a className="btn btn-white btn-sm float-right" onclick="cardapio.metodos.abrirCarrinho(false)">
@@ -131,7 +131,7 @@ class ModalCarrinho extends Component {
 
             </div>
 
-            <div id="resumoCarrinho" className="row mr-0 ml-0 animated fadeIn ">
+            <div id="resumoCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
               <div className="col-12">
                 <p className="title-carrinho mt-4">
                   <b>Itens do pedido:</b>
