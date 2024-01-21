@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import imgproduto from '../img/cardapio/burguers/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg';
 import MENU from '../utils/dados';
 
 class Cardapio extends Component {
   state = {
     categoriaItemCardapio: 'burgers',
     arrCategoriaCardapio: MENU['burgers'],
+    itensExibidos: 8,
   };
 
   handleClickRenderCardapio = (event) => {
@@ -14,17 +14,26 @@ class Cardapio extends Component {
     const elements = document.querySelectorAll('.container-menu a');
 
     elements.forEach((element) =>  element.classList.remove('active'))
-  
-    event.target.classList.add('active')
+
+    document.getElementById(`menu-${categoria}`).classList.add('active');
     
     this.setState({
       categoriaItemCardapio: categoria,
       arrCategoriaCardapio: MENU[categoria],
+      itensExibidos: 8,
     });
-  }
+  };
+
+  handleClickVerMais = () => {
+    this.setState((prevState) => ({
+      itensExibidos: prevState.itensExibidos + 4,
+    }));
+  };
 
   render() {
-    const { arrCategoriaCardapio } = this.state;
+    const { arrCategoriaCardapio, itensExibidos } = this.state;
+    const itensExibidosAtualizados = arrCategoriaCardapio.slice(0, itensExibidos);
+    const mostrarBotaoVerMais = itensExibidos < arrCategoriaCardapio.length;
     return (
       <section className="cardapio" id="cardapio">
         <div className="background-cardapio"></div>
@@ -67,8 +76,8 @@ class Cardapio extends Component {
             <div className="col-12 col-one">
               <div className="row" id="itensCardapio">
                 {
-                  arrCategoriaCardapio.map(({ id, img, name, price }) => (
-                    <div className="col-3" key={id}>
+                  itensExibidosAtualizados.map(({ id, img, name, price }) => (
+                    <div className="col-12 col-lg-3 col-md-3 col-sm-6 mb-5 animated fadeInUp" key={id}>
                       <div className="card card-item">
                         <div className="img-produto">
                           <img src={img} />
@@ -92,8 +101,8 @@ class Cardapio extends Component {
               </div>
             </div>
 
-            <div className="col-12 col-one text-center wow fadeInUp">
-              <a id="btnVerMais" className="btn btn-white btn-sm">
+            <div className={`col-12 col-one text-center wow fadeInUp ${mostrarBotaoVerMais ? '' : 'hidden'}`}>
+              <a id="btnVerMais" className="btn btn-white btn-sm" onClick={this.handleClickVerMais}>
                 Ver mais
               </a>
             </div>
