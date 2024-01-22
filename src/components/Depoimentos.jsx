@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import imgPizza from '../img/pizzas.png';
 
 class Depoimentos extends Component {
+
+  handleClickDepoimentos = (event) => {
+    console.log(event.target)
+  }
+
   render() {
     return (
       <section className="depoimentos" id="depoimentos">
@@ -99,11 +104,11 @@ class Depoimentos extends Component {
               </div>
 
               <a id="btnDepoimento-1" className="btn btn-sm btn-white btn-social wow fadeIn mr-3 active"
-                onclick="cardapio.metodos.abrirDepoimento(1)">1</a>
+                onclick={this.handleClickDepoimentos}>1</a>
               <a id="btnDepoimento-2" className="btn btn-sm btn-white btn-social wow fadeIn mr-3"
-                onclick="cardapio.metodos.abrirDepoimento(2)">2</a>
+                onclick={this.handleClickDepoimentos}>2</a>
               <a id="btnDepoimento-3" className="btn btn-sm btn-white btn-social wow fadeIn"
-                onclick="cardapio.metodos.abrirDepoimento(3)">3</a>
+                onclick={this.handleClickDepoimentos}>3</a>
 
             </div>
 

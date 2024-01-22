@@ -6,6 +6,7 @@ class Cardapio extends Component {
     categoriaItemCardapio: 'burgers',
     arrCategoriaCardapio: MENU['burgers'],
     itensExibidos: 8,
+    meuCarrinho: [],
   };
 
   handleClickRenderCardapio = (event) => {
@@ -30,6 +31,41 @@ class Cardapio extends Component {
     }));
   };
 
+  handleClickDiminuirQuantidade = (id) => {
+    const getElement = document.getElementById(`qntd-${id}`);
+    if (getElement.textContent > 0) {
+      const qntdAtual = parseInt(getElement.textContent) - 1;
+      return getElement.textContent = qntdAtual;
+    }
+  };
+
+  handleClickAumentarQuantidade = (id) => {
+    const getElement = document.getElementById(`qntd-${id}`);
+    const qntdAtual = parseInt(getElement.textContent) + 1;
+    getElement.textContent = qntdAtual;
+  };
+
+  handleClickAddCarrinho = (id) => {
+    const { arrCategoriaCardapio, meuCarrinho } = this.state;
+    const quantidade = parseInt(document.getElementById(`qntd-${id}`).textContent);
+
+    if (quantidade > 0) {
+      const novoItem = arrCategoriaCardapio.find((e) => e.id === id);
+      const existe = meuCarrinho.find((e) => e.id === id);
+
+      if (!existe) {
+        this.setState((prevState) => ({
+          meuCarrinho: [...prevState.meuCarrinho, {...novoItem, quantidade}],
+        }));
+      } else {
+        this.setState((prevState) => ({
+          meuCarrinho: prevState.meuCarrinho.map((e) => e.id === id ? {...e, quantidade: e.quantidade + quantidade} : e),
+        }));
+      }
+      document.getElementById(`qntd-${id}`).textContent = 0
+    };
+  };
+  
   render() {
     const { arrCategoriaCardapio, itensExibidos } = this.state;
     const itensExibidosAtualizados = arrCategoriaCardapio.slice(0, itensExibidos);
@@ -77,7 +113,7 @@ class Cardapio extends Component {
               <div className="row" id="itensCardapio">
                 {
                   itensExibidosAtualizados.map(({ id, img, name, price }) => (
-                    <div className="col-12 col-lg-3 col-md-3 col-sm-6 mb-5 animated fadeInUp" key={id}>
+                    <div className="col-12 col-lg-3 col-md-3 col-sm-6 mb-5 animated fadeInUp">
                       <div className="card card-item">
                         <div className="img-produto">
                           <img src={img} />
@@ -89,10 +125,10 @@ class Cardapio extends Component {
                           <b>R$ {price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>
                         </p>
                         <div className="add-carrinho">
-                          <span className="btn-menos"><i className="fas fa-minus"></i></span>
-                          <span className="add-numero-itens">0</span>
-                          <span className="btn-mais"><i className="fas fa-plus"></i></span>
-                          <span className="btn btn-add"><i className="fa fa-shopping-bag"></i></span>
+                          <span className="btn-menos" onClick={() => this.handleClickDiminuirQuantidade(id)}><i className="fas fa-minus"></i></span>
+                          <span className="add-numero-itens" id={`qntd-${id}`}>0</span>
+                          <span className="btn-mais" onClick={() => this.handleClickAumentarQuantidade(id)}><i className="fas fa-plus"></i></span>
+                          <span className="btn btn-add" onClick={() => this.handleClickAddCarrinho(id)}><i className="fa fa-shopping-bag"></i></span>
                         </div>
                       </div>
                     </div>
