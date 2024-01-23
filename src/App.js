@@ -6,6 +6,7 @@ import Cardapio from "./components/Cardapio";
 import Depoimentos from "./components/Depoimentos";
 import Footer from "./components/Footer";
 import ModalCarrinho from "./components/ModalCarrinho";
+
 import './css/main.css'
 
 class App extends Component {

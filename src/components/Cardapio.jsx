@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import MENU from '../utils/dados';
-import Header from './Header';
+import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 
 class Cardapio extends Component {
+  static contextType = QntdItensCarrinho;
+
   state = {
     categoriaItemCardapio: 'burgers',
     arrCategoriaCardapio: MENU['burgers'],
@@ -70,11 +72,13 @@ class Cardapio extends Component {
 
   atualizarCarrinho = () => {
     const { meuCarrinho } = this.state;
+    const { setQntdItens } = this.context;
     let total = 0;
     meuCarrinho.forEach((e) => total += e.quantidade);
     this.setState({
       qntdItensCarrinho: total
-    })
+    }, () => setQntdItens(total))
+    
   };
 
   render() {
@@ -83,7 +87,6 @@ class Cardapio extends Component {
     const mostrarBotaoVerMais = itensExibidos < arrCategoriaCardapio.length;
     return (
       <>
-        <Header qntdItensCarrinho={qntdItensCarrinho} />
         <a className="botao-carrinho animated bounceIn" onClick="">
           <div className="badge-total-carrinho">{qntdItensCarrinho}</div>
           <i className="fa fa-shopping-bag"></i>

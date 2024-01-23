@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Logo from '../img/logo.png';
+import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 import '../css/bootstrap.min.css';
 import '../css/fontawesome.css';
 
 class Header extends Component {
+  static contextType = QntdItensCarrinho;
+
   render() {
-    const { qntdItensCarrinho } = this.props;
+    const { qntdItens } = this.context;
 
     return (
       <section>
@@ -33,7 +36,7 @@ class Header extends Component {
               </ul>
               <a className="btn btn-white btn-icon wow fadeIn">
                 Meu carrinho <span className="icon">
-                  <div className="container-total-carrinho badge-total-carrinho">{qntdItensCarrinho}</div>
+                  <div className="container-total-carrinho badge-total-carrinho">{qntdItens}</div>
                   <i className="fa fa-shopping-bag"></i>
                 </span>
               </a>
