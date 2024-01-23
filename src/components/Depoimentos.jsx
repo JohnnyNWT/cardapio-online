@@ -4,7 +4,16 @@ import imgPizza from '../img/pizzas.png';
 class Depoimentos extends Component {
 
   handleClickDepoimentos = (event) => {
-    console.log(event.target)
+    const numberDepoimento = event.target.textContent;
+    const getBtnSocial = document.querySelectorAll(".btn-social");
+    const getDepoimentos = document.querySelectorAll('.depoimento');
+    const getDepoimentoRemoveHidden = document.getElementById(`depoimento-${numberDepoimento}`);
+
+    getBtnSocial.forEach((e) => e.classList.remove('active'));
+    event.target.classList.add('active');
+
+    getDepoimentos.forEach((e) => e.classList.add('hidden'));
+    getDepoimentoRemoveHidden.classList.remove('hidden');
   }
 
   render() {
@@ -104,14 +113,13 @@ class Depoimentos extends Component {
               </div>
 
               <a id="btnDepoimento-1" className="btn btn-sm btn-white btn-social wow fadeIn mr-3 active"
-                onclick={this.handleClickDepoimentos}>1</a>
+                onClick={this.handleClickDepoimentos}>1</a>
               <a id="btnDepoimento-2" className="btn btn-sm btn-white btn-social wow fadeIn mr-3"
-                onclick={this.handleClickDepoimentos}>2</a>
+                onClick={this.handleClickDepoimentos}>2</a>
               <a id="btnDepoimento-3" className="btn btn-sm btn-white btn-social wow fadeIn"
-                onclick={this.handleClickDepoimentos}>3</a>
+                onClick={this.handleClickDepoimentos}>3</a>
 
             </div>
-
           </div>
         </div>
       </section>
