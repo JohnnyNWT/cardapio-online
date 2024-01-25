@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Logo from '../img/logo.png';
+import abrirCarrinho from '../utils/abrirCarrinho';
 import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 import '../css/bootstrap.min.css';
 import '../css/fontawesome.css';
@@ -34,7 +35,7 @@ class Header extends Component {
                   <a href="#depoimentos" className="nav-link"><b>Depoimentos</b></a>
                 </li>
               </ul>
-              <a className="btn btn-white btn-icon wow fadeIn">
+              <a className="btn btn-white btn-icon wow fadeIn" onClick={() => abrirCarrinho(true)}>
                 Meu carrinho <span className="icon">
                   <div className={`container-total-carrinho badge-total-carrinho ${ qntdItens === 0 ? 'hidden' : '' }`}>{qntdItens}</div>
                   <i className="fa fa-shopping-bag"></i>

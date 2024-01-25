@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MENU from '../utils/dados';
+import abrirCarrinho from '../utils/abrirCarrinho';
 import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 
 class Cardapio extends Component {
@@ -109,7 +110,7 @@ class Cardapio extends Component {
 
         </div>
 
-        <a className="botao-carrinho animated bounceIn hidden" onClick="">
+        <a className="botao-carrinho animated bounceIn hidden" onClick={() => abrirCarrinho(true)}>
           <div className="badge-total-carrinho">{qntdItensCarrinho}</div>
           <i className="fa fa-shopping-bag"></i>
         </a>

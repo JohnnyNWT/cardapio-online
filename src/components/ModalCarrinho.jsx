@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import abrirCarrinho from '../utils/abrirCarrinho';
 import imgProduto from '../img/cardapio/burguers/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg';
 
 class ModalCarrinho extends Component {
@@ -7,7 +8,7 @@ class ModalCarrinho extends Component {
       <div className="modal-full animated fadeIn hidden" id="modalCarrinho">
         <div className="m-header">
           <div className="container">
-            <a className="btn btn-white btn-sm float-right" onclick="cardapio.metodos.abrirCarrinho(false)">
+            <a className="btn btn-white btn-sm float-right" onClick={() => abrirCarrinho(false)}>
               Fechar
             </a>
             <div className="etapas">
