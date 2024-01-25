@@ -66,6 +66,7 @@ class Cardapio extends Component {
           meuCarrinho: prevState.meuCarrinho.map((e) => e.id === id ? { ...e, quantidade: e.quantidade + quantidade } : e),
         }), () => this.atualizarCarrinho());
       }
+      this.mensagem('Item adicionado ao carrinho', 'green');
       document.getElementById(`qntd-${id}`).textContent = 0;
     };
   };
@@ -73,12 +74,29 @@ class Cardapio extends Component {
   atualizarCarrinho = () => {
     const { meuCarrinho } = this.state;
     const { setQntdItens } = this.context;
+
+    if (meuCarrinho.length > 0) {
+      document.querySelector('.botao-carrinho').classList.remove('hidden');
+    } else {
+      document.querySelector('.botao-carrinho').classList.add('hidden');
+    }
+
     let total = 0;
     meuCarrinho.forEach((e) => total += e.quantidade);
     this.setState({
       qntdItensCarrinho: total
     }, () => setQntdItens(total))
-    
+
+  };
+
+  mensagem = (texto, cor = 'red', tempo = 3500) => {
+    const msg = `<div class="animated fadeInDown toast ${cor}">${texto}</div>`;
+
+    document.querySelector('#container-mensagens').innerHTML += msg;
+
+    setTimeout(() => {
+      document.querySelector("#container-mensagens").innerHTML = '';
+    }, tempo);
   };
 
   render() {
@@ -87,7 +105,11 @@ class Cardapio extends Component {
     const mostrarBotaoVerMais = itensExibidos < arrCategoriaCardapio.length;
     return (
       <>
-        <a className="botao-carrinho animated bounceIn" onClick="">
+        <div class="container-mensagens" id="container-mensagens">
+
+        </div>
+
+        <a className="botao-carrinho animated bounceIn hidden" onClick="">
           <div className="badge-total-carrinho">{qntdItensCarrinho}</div>
           <i className="fa fa-shopping-bag"></i>
         </a>

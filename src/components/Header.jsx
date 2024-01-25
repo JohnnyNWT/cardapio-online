@@ -36,7 +36,7 @@ class Header extends Component {
               </ul>
               <a className="btn btn-white btn-icon wow fadeIn">
                 Meu carrinho <span className="icon">
-                  <div className="container-total-carrinho badge-total-carrinho">{qntdItens}</div>
+                  <div className={`container-total-carrinho badge-total-carrinho ${ qntdItens === 0 ? 'hidden' : '' }`}>{qntdItens}</div>
                   <i className="fa fa-shopping-bag"></i>
                 </span>
               </a>
