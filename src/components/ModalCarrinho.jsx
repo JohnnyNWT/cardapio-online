@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import abrirCarrinho from '../utils/abrirCarrinho';
+import carrinho from '../utils/carrinho';
 import imgProduto from '../img/cardapio/burguers/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg';
 
 class ModalCarrinho extends Component {
@@ -8,7 +8,7 @@ class ModalCarrinho extends Component {
       <div className="modal-full animated fadeIn hidden" id="modalCarrinho">
         <div className="m-header">
           <div className="container">
-            <a className="btn btn-white btn-sm float-right" onClick={() => abrirCarrinho(false)}>
+            <a className="btn btn-white btn-sm float-right" onClick={() => carrinho.abrirCarrinho(false)}>
               Fechar
             </a>
             <div className="etapas">
@@ -204,17 +204,17 @@ class ModalCarrinho extends Component {
               </p>
             </div>
 
-            <a onclick="cardapio.metodos.carregarEndereco()" className="btn btn-yellow float-right" id="btnEtapaPedido">
+            <a onClick={() => carrinho.carregarEtapa(2)} className="btn btn-yellow float-right" id="btnEtapaPedido">
               Continuar
             </a>
-            <a onclick="cardapio.metodos.resumoPedido()" className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
+            <a onClick={() => carrinho.carregarEtapa(3)} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
               Revisar pedido
             </a>
             <a href="#" className="btn btn-yellow float-right hidden" id="btnEtapaResumo" target="_blank">
               Enviar pedido
             </a>
 
-            <a onclick="cardapio.metodos.voltarEtapa()" className="btn btn-white float-right mr-3 hidden" id="btnVoltar">
+            <a onClick={() => carrinho.carregarEtapa('Voltar')} className="btn btn-white float-right mr-3 hidden" id="btnVoltar">
               Voltar
             </a>
 
