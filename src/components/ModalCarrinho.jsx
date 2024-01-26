@@ -210,7 +210,7 @@ class ModalCarrinho extends Component {
             <a onClick={() => carrinho.carregarEtapa(3)} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
               Revisar pedido
             </a>
-            <a href="#" className="btn btn-yellow float-right hidden" id="btnEtapaResumo" target="_blank">
+            <a className="btn btn-yellow float-right hidden" id="btnEtapaResumo">
               Enviar pedido
             </a>
 
