@@ -74,7 +74,9 @@ class Cardapio extends Component {
 
   atualizarCarrinho = () => {
     const { meuCarrinho } = this.state;
-    const { setQntdItens } = this.context;
+    const { setQntdItens, setMeuCarrinho } = this.context;
+
+    setMeuCarrinho([...meuCarrinho]);
 
     if (meuCarrinho.length > 0) {
       document.querySelector('.botao-carrinho').classList.remove('hidden');

@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import carrinho from '../utils/carrinho';
 import imgProduto from '../img/cardapio/burguers/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg';
+import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 
 class ModalCarrinho extends Component {
+  static contextType = QntdItensCarrinho;
+  
   render() {
+    const { meuCarrinho } = this.context;
+
     return (
       <div className="modal-full animated fadeIn hidden" id="modalCarrinho">
         <div className="m-header">
@@ -26,22 +31,23 @@ class ModalCarrinho extends Component {
           <div className="container">
 
             <div id="itensCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
-
-              <div className="col-12 item-carrinho">
+            {meuCarrinho.map(({ id, img, name, price, quantidade }) => (
+              <div className="col-12 item-carrinho" id={id}>
                 <div className="img-produto">
-                  <img src={imgProduto} alt="" />
+                  <img src={img} alt="" />
                 </div>
                 <div className="dados-produto">
-                  <p className="title-produto"><b>Nome do produto</b></p>
-                  <p className="price-produto"><b>R$ 150,00</b></p>
+                  <p className="title-produto"><b>{name}</b></p>
+                  <p className="price-produto"><b>R$ {price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b></p>
                 </div>
                 <div className="add-carrinho">
                   <span className="btn-menos"><i className="fas fa-minus"></i></span>
-                  <span className="add-numero-itens">0</span>
+                  <span className="add-numero-itens">{quantidade}</span>
                   <span className="btn-mais"><i className="fas fa-plus"></i></span>
                   <span className="btn btn-remove"><i className="fa fa-times"></i></span>
                 </div>
               </div>
+            ))}
 
             </div>
 
