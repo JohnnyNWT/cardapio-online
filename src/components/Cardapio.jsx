@@ -129,8 +129,7 @@ class Cardapio extends Component {
               </div>
 
               <div className="col-12 col-one container-menu wow fadeInUp">
-                <a id="menu-burgers" className="btn btn-white btn-sm mr-3 active"
-                  onClick={this.handleClickRenderCardapio}>
+                <a id="menu-burgers" className="btn btn-white btn-sm mr-3 active" onClick={this.handleClickRenderCardapio}>
                   <i id="menu-burgers" className="fas fa-hamburger"></i>&nbsp; Burgers
                 </a>
                 <a id="menu-pizzas" className="btn btn-white btn-sm mr-3" onClick={this.handleClickRenderCardapio}>
