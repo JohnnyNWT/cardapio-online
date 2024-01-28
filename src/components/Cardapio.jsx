@@ -10,9 +10,11 @@ class Cardapio extends Component {
     categoriaItemCardapio: 'burgers',
     arrCategoriaCardapio: MENU['burgers'],
     itensExibidos: 8,
-    meuCarrinho: [],
-    qntdItensCarrinho: 0,
   };
+
+  componentDidUpdate() {
+    this.atualizarCarrinho();
+  }
 
   handleClickRenderCardapio = (event) => {
     const categoria = event.target.id.split('-')[1];
@@ -51,7 +53,8 @@ class Cardapio extends Component {
   };
 
   handleClickAddCarrinho = (id) => {
-    const { arrCategoriaCardapio, meuCarrinho } = this.state;
+    const { arrCategoriaCardapio } = this.state;
+    const { meuCarrinho, setMeuCarrinho } = this.context;
     const quantidade = parseInt(document.getElementById(`qntd-${id}`).textContent);
 
     if (quantidade > 0) {
@@ -59,24 +62,29 @@ class Cardapio extends Component {
       const existe = meuCarrinho.find((e) => e.id === id);
 
       if (!existe) {
-        this.setState((prevState) => ({
-          meuCarrinho: [...prevState.meuCarrinho, { ...novoItem, quantidade }],
-        }), () => this.atualizarCarrinho());
+        setMeuCarrinho([...meuCarrinho, { ...novoItem, quantidade }]);
       } else {
-        this.setState((prevState) => ({
-          meuCarrinho: prevState.meuCarrinho.map((e) => e.id === id ? { ...e, quantidade: e.quantidade + quantidade } : e),
-        }), () => this.atualizarCarrinho());
+        setMeuCarrinho(meuCarrinho.map((e) => e.id === id ? { ...e, quantidade: e.quantidade + quantidade } : e));
       }
+
+      // if (!existe) {
+      //   this.setState(() => ({
+      //     meuCarrinho: [...meuCarrinho, { ...novoItem, quantidade }],
+      //   }), () => this.atualizarCarrinho());
+      // } else {
+      //   this.setState(() => ({
+      //     meuCarrinho: meuCarrinho.map((e) => e.id === id ? { ...e, quantidade: e.quantidade + quantidade } : e),
+      //   }), () => this.atualizarCarrinho());
+      // }
+
       this.mensagem('Item adicionado ao carrinho', 'green');
       document.getElementById(`qntd-${id}`).textContent = 0;
     };
   };
 
   atualizarCarrinho = () => {
-    const { meuCarrinho } = this.state;
-    const { setQntdItens, setMeuCarrinho } = this.context;
-
-    setMeuCarrinho([...meuCarrinho]);
+    const { setQntdItens, meuCarrinho } = this.context;
+    // console.log(meuCarrinho);
 
     if (meuCarrinho.length > 0) {
       document.querySelector('.botao-carrinho').classList.remove('hidden');
@@ -86,10 +94,7 @@ class Cardapio extends Component {
 
     let total = 0;
     meuCarrinho.forEach((e) => total += e.quantidade);
-    this.setState({
-      qntdItensCarrinho: total
-    }, () => setQntdItens(total))
-
+    setQntdItens(total);
   };
 
   mensagem = (texto, cor = 'red', tempo = 3500) => {
@@ -103,17 +108,17 @@ class Cardapio extends Component {
   };
 
   render() {
-    const { arrCategoriaCardapio, itensExibidos, qntdItensCarrinho } = this.state;
+    const { arrCategoriaCardapio, itensExibidos } = this.state;
+    const { qntdItens } = this.context;
     const itensExibidosAtualizados = arrCategoriaCardapio.slice(0, itensExibidos);
     const mostrarBotaoVerMais = itensExibidos < arrCategoriaCardapio.length;
     return (
       <>
         <div class="container-mensagens" id="container-mensagens">
-
         </div>
 
         <a className="botao-carrinho animated bounceIn hidden" onClick={() => carrinho.abrirCarrinho(true)}>
-          <div className="badge-total-carrinho">{qntdItensCarrinho}</div>
+          <div className="badge-total-carrinho">{qntdItens}</div>
           <i className="fa fa-shopping-bag"></i>
         </a>
         <section className="cardapio" id="cardapio">

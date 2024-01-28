@@ -7,23 +7,41 @@ class ModalCarrinho extends Component {
   static contextType = QntdItensCarrinho;
 
   handleClickAumentarQuantidade = (id) => {
-    const { meuCarrinho } = this.context;
+    const { setQntdItens, qntdItens, meuCarrinho } = this.context;
     meuCarrinho.forEach((e) => e.id === id ? e.quantidade += 1: e);
-
-    const getElement = document.getElementById(`qntd-${id}`);
+    setQntdItens(qntdItens + 1);
+    
+    const getElement = document.getElementById(`qntd-carrinho-${id}`);
     const qntdAtual = parseInt(getElement.textContent) + 1;
     getElement.textContent = qntdAtual;
   };
 
   handleClickDiminuirQuantidade = (id) => {
-    const { meuCarrinho } = this.context;
-    meuCarrinho.forEach((e) => e.id === id ? e.quantidade -= 1: e);
-
-    const getElement = document.getElementById(`qntd-${id}`);
-    if (getElement.textContent > 0) {
+    const { setQntdItens, qntdItens, meuCarrinho } = this.context;
+    const getElement = document.getElementById(`qntd-carrinho-${id}`);
+    
+    if (getElement.textContent > 1) {
+      meuCarrinho.forEach((e) => {
+        if (e.id === id) {
+          e.quantidade -= 1;
+        }
+      });
+      setQntdItens(qntdItens - 1);
       const qntdAtual = parseInt(getElement.textContent) - 1;
-      return getElement.textContent = qntdAtual;
+      getElement.textContent = qntdAtual;
+    } else {
+      this.handleClickRemoverItem(id);
     }
+  };
+
+  handleClickRemoverItem = (id) => {
+    const { meuCarrinho, setMeuCarrinho, setQntdItens } = this.context;
+    const novoCarrinho = meuCarrinho.filter((item) => item.id !== id);
+
+    let total = 0;
+    novoCarrinho.forEach((e) => total += e.quantidade);
+    setQntdItens(total);
+    setMeuCarrinho(novoCarrinho);
   };
 
   render() {
@@ -65,7 +83,7 @@ class ModalCarrinho extends Component {
                     <span className="btn-menos" onClick={() => this.handleClickDiminuirQuantidade(id)}><i className="fas fa-minus"></i></span>
                     <span className="add-numero-itens" id={`qntd-carrinho-${id}`}>{quantidade}</span>
                     <span className="btn-mais" onClick={() => this.handleClickAumentarQuantidade(id)}><i className="fas fa-plus"></i></span>
-                    <span className="btn btn-remove"><i className="fa fa-times"></i></span>
+                    <span className="btn btn-remove" onClick={() => this.handleClickRemoverItem(id)}><i className="fa fa-times"></i></span>
                   </div>
                 </div>
                 )): <p className="carrinho-vazio"><i className="fa fa-shopping-bag"></i>Seu carrinho está vazio.</p>
