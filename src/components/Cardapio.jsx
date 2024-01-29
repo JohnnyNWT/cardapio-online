@@ -77,7 +77,7 @@ class Cardapio extends Component {
       //   }), () => this.atualizarCarrinho());
       // }
 
-      this.mensagem('Item adicionado ao carrinho', 'green');
+      carrinho.mensagem('Item adicionado ao carrinho', 'green');
       document.getElementById(`qntd-${id}`).textContent = 0;
     };
   };
@@ -95,16 +95,6 @@ class Cardapio extends Component {
     let total = 0;
     meuCarrinho.forEach((e) => total += e.quantidade);
     setQntdItens(total);
-  };
-
-  mensagem = (texto, cor = 'red', tempo = 3500) => {
-    const msg = `<div class="animated fadeInDown toast ${cor}">${texto}</div>`;
-
-    document.querySelector('#container-mensagens').innerHTML += msg;
-
-    setTimeout(() => {
-      document.querySelector("#container-mensagens").innerHTML = '';
-    }, tempo);
   };
 
   render() {

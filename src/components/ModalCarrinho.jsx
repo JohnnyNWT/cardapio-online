@@ -61,6 +61,16 @@ class ModalCarrinho extends Component {
     setMeuCarrinho(novoCarrinho);
   };
 
+  carregarEndereco = () => {
+    const { meuCarrinho } = this.context
+    if (meuCarrinho.length <= 0) {
+      carrinho.mensagem('Seu carrinho está vazio.', 'red');
+      return;
+    }
+
+    carrinho.carregarEtapa(2)
+  }
+
   render() {
     const { valorCarrinho, valorEntrega } = this.state;
     const { meuCarrinho } = this.context;
@@ -268,7 +278,7 @@ class ModalCarrinho extends Component {
               </p>
             </div>
 
-            <a onClick={() => carrinho.carregarEtapa(2)} className="btn btn-yellow float-right" id="btnEtapaPedido">
+            <a onClick={() => this.carregarEndereco()} className="btn btn-yellow float-right" id="btnEtapaPedido">
               Continuar
             </a>
             <a onClick={() => carrinho.carregarEtapa(3)} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">

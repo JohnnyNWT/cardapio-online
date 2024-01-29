@@ -85,4 +85,14 @@ const abrirCarrinho = (abrir) => {
   }
 };
 
-export default { abrirCarrinho, carregarEtapa };
+const mensagem = (texto, cor = 'red', tempo = 3500) => {
+  const msg = `<div class="animated fadeInDown toast ${cor}">${texto}</div>`;
+
+  document.querySelector('#container-mensagens').innerHTML += msg;
+
+  setTimeout(() => {
+    document.querySelector("#container-mensagens").innerHTML = '';
+  }, tempo);
+};
+
+export default { abrirCarrinho, carregarEtapa, mensagem };
