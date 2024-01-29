@@ -6,6 +6,23 @@ import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 class ModalCarrinho extends Component {
   static contextType = QntdItensCarrinho;
 
+  state = {
+    valorCarrinho: 0,
+    valorEntrega: 5,
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    const { meuCarrinho } = this.context;
+
+    const novoValorCarrinho = meuCarrinho.reduce((total, item) => total + item.price * item.quantidade, 0);
+  
+    if (novoValorCarrinho !== prevState.valorCarrinho) {
+      this.setState({
+        valorCarrinho: novoValorCarrinho,
+      });
+    }
+  }
+
   handleClickAumentarQuantidade = (id) => {
     const { setQntdItens, qntdItens, meuCarrinho } = this.context;
     meuCarrinho.forEach((e) => e.id === id ? e.quantidade += 1: e);
@@ -45,6 +62,7 @@ class ModalCarrinho extends Component {
   };
 
   render() {
+    const { valorCarrinho, valorEntrega } = this.state;
     const { meuCarrinho } = this.context;
 
     return (
@@ -237,16 +255,16 @@ class ModalCarrinho extends Component {
           <div className="container">
             <div className="container-total text-right mb-4">
               <p className="mb-0">
-                <span>Subtotal:</span>
-                <span id="lblSubTotal">R$ 95,00</span>
+                <span>Subtotal: </span>
+                <span id="lblSubTotal">R$ {valorCarrinho.toFixed(2).replace('.', ',')}</span>
               </p>
               <p className="mb-0 texto-entrega">
-                <span><i className="fas fa-motorcycle"></i> Entrega:</span>
-                <span id="lblValorEntrega">+ R$ 5,00</span>
+                <span><i className="fas fa-motorcycle"></i> Entrega: </span>
+                <span id="lblValorEntrega">+ R$ {valorEntrega.toFixed(2).replace('.', ',')}</span>
               </p>
               <p className="mb-0 texto-total">
-                <span><b>Total:</b></span>
-                <span className="valor-total"><b id="lblValorTotal">R$ 100,00</b></span>
+                <span><b>Total: </b></span>
+                <span className="valor-total"><b id="lblValorTotal">R$ {(valorCarrinho + valorEntrega).toFixed(2).replace('.', ',')}</b></span>
               </p>
             </div>
 
