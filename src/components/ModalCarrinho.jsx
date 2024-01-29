@@ -332,10 +332,10 @@ class ModalCarrinho extends Component {
                 </div>
                 <div className="dados-produto">
                   <p className="texto-endereco">
-                    <b id="resumoEndereco">{txtEndereco}</b>
+                    <b id="resumoEndereco">{txtEndereco}, {txtNumero}, {txtBairro}</b>
                   </p>
                   <p className="cidade-endereco" id="cidadeEndereco">
-                    Cidade-{txtCidade} / {txtCEP.trim().replace(/\D/g, '')}
+                    {txtCidade}-{ddlUf} / {txtCEP.trim().replace(/\D/g, '')}
                   </p>
                 </div>
               </div>
