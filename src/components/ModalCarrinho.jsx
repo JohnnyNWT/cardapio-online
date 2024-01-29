@@ -15,7 +15,7 @@ class ModalCarrinho extends Component {
     txtNumero: '',
     txtCidade: '',
     txtComplemento: '',
-    ddlUf: '...',
+    ddlUf: '',
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -112,8 +112,7 @@ class ModalCarrinho extends Component {
           txtBairro: bairro,
           txtEndereco: logradouro,
         });
-  
-        // Use a referência diretamente se estiver usando React
+
         document.getElementById('txtEndereco').focus();
       } catch (error) {
         carrinho.mensagem(`Erro ao buscar CEP: ${error.message}`, 'red');
@@ -158,7 +157,9 @@ class ModalCarrinho extends Component {
     const { meuCarrinho } = this.context;
 
     return (
+      
       <div className="modal-full animated fadeIn hidden" id="modalCarrinho">
+        
         <div className="m-header">
           <div className="container">
             <a className="btn btn-white btn-sm float-right" onClick={() => carrinho.abrirCarrinho(false)}>
