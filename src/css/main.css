@@ -729,6 +729,12 @@ footer {
   background-color: var(--color-green);
 }
 
+.toast.yellow {
+  background-color: #FFB200;
+}
+
+
+
 .carrinho-vazio {
   margin: 0 auto;
   text-align: center;

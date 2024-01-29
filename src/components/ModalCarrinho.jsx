@@ -9,6 +9,13 @@ class ModalCarrinho extends Component {
   state = {
     valorCarrinho: 0,
     valorEntrega: 5,
+    txtCEP: '',
+    txtEndereco: '',
+    txtBairro: '',
+    txtNumero: '',
+    txtCidade: '',
+    txtComplemento: '',
+    ddlUf: '...',
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -22,6 +29,11 @@ class ModalCarrinho extends Component {
       });
     }
   }
+
+  handleChange = ({ target }) => {
+    const { id, value } = target;
+    this.setState({ [id]: value });
+  };
 
   handleClickAumentarQuantidade = (id) => {
     const { setQntdItens, qntdItens, meuCarrinho } = this.context;
@@ -69,10 +81,60 @@ class ModalCarrinho extends Component {
     }
 
     carrinho.carregarEtapa(2)
-  }
+  };
+
+  handleClickBuscarCep = async () => {
+    const { txtCEP } = this.state;
+    const cep = txtCEP.trim().replace(/\D/g, '');
+    const validaCEP = /^[0-9]{8}$/;
+  
+    if (validaCEP.test(cep)) {
+      const API = `https://viacep.com.br/ws/${cep}/json`;
+  
+      try {
+        const response = await fetch(API);
+  
+        if (!response.ok) {
+          throw new Error(`Erro na requisição: ${response.status}`);
+        }
+  
+        const data = await response.json();
+  
+        if (data.erro) {
+          throw new Error('CEP não encontrado');
+        }
+  
+        const { bairro, logradouro, localidade, uf } = data;
+  
+        this.setState({
+          txtCidade: localidade,
+          ddlUf: uf,
+          txtBairro: bairro,
+          txtEndereco: logradouro,
+        });
+  
+        // Use a referência diretamente se estiver usando React
+        document.getElementById('txtEndereco').focus();
+      } catch (error) {
+        carrinho.mensagem(`Erro ao buscar CEP: ${error.message}`, 'red');
+      }
+    } else {
+      carrinho.mensagem('CEP inválido. Mas não se preocupe, este campo é opcional.', 'yellow');
+    }
+  };
 
   render() {
-    const { valorCarrinho, valorEntrega } = this.state;
+    const {
+      valorCarrinho,
+      valorEntrega,
+      txtCEP,
+      txtEndereco,
+      txtBairro,
+      txtNumero,
+      txtCidade,
+      txtComplemento,
+      ddlUf,
+    } = this.state;
     const { meuCarrinho } = this.context;
 
     return (
@@ -124,8 +186,8 @@ class ModalCarrinho extends Component {
               <div className="col-12 col-lg-4 col-md-4 col-sm-12">
                 <div className="form-group container-cep">
                   <label>CEP:</label>
-                  <input id="txtCEP" type="text" className="form-control" />
-                  <a className="btn btn-yellow btn-sm" onclick="cardapio.metodos.buscarCep()">
+                  <input id="txtCEP" type="text" className="form-control" onChange={this.handleChange} value={txtCEP} />
+                  <a className="btn btn-yellow btn-sm" onClick={this.handleClickBuscarCep}>
                     <i className="fa fa-search"></i>
                   </a>
                 </div>
@@ -136,42 +198,42 @@ class ModalCarrinho extends Component {
               <div className="col-12 col-lg-6 col-md-6 col-sm-12">
                 <div className="form-group">
                   <label>Endereço:</label>
-                  <input id="txtEndereco" type="text" className="form-control" />
+                  <input id="txtEndereco" type="text" className="form-control" onChange={this.handleChange} value={txtEndereco} />
                 </div>
               </div>
 
               <div className="col-12 col-lg-4 col-md-4 col-sm-12">
                 <div className="form-group">
                   <label>Bairro:</label>
-                  <input id="txtBairro" type="text" className="form-control" />
+                  <input id="txtBairro" type="text" className="form-control" onChange={this.handleChange} value={txtBairro} />
                 </div>
               </div>
 
               <div className="col-12 col-lg-2 col-md-2 col-sm-12">
                 <div className="form-group">
                   <label>Número:</label>
-                  <input id="txtNumero" type="text" className="form-control" />
+                  <input id="txtNumero" type="text" className="form-control" onChange={this.handleChange} value={txtNumero} />
                 </div>
               </div>
 
               <div className="col-12 col-lg-6 col-md-6 col-sm-12">
                 <div className="form-group">
                   <label>Cidade:</label>
-                  <input id="txtCidade" type="text" className="form-control" />
+                  <input id="txtCidade" type="text" className="form-control" onChange={this.handleChange} value={txtCidade} />
                 </div>
               </div>
 
               <div className="col-12 col-lg-4 col-md-4 col-sm-12">
                 <div className="form-group">
                   <label>Complemento:</label>
-                  <input id="txtComplemento" type="text" className="form-control" />
+                  <input id="txtComplemento" type="text" className="form-control" onChange={this.handleChange} value={txtComplemento} />
                 </div>
               </div>
 
               <div className="col-12 col-lg-2 col-md-2 col-sm-12">
                 <div className="form-group">
                   <label>UF:</label>
-                  <select id="ddlUf" className="form-control">
+                  <select id="ddlUf" onChange={this.handleChange} value={ddlUf} className="form-control">
                     <option value="-1">...</option>
                     <option value="AC">AC</option>
                     <option value="AL">AL</option>
