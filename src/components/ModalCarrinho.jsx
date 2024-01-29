@@ -123,6 +123,26 @@ class ModalCarrinho extends Component {
     }
   };
 
+  resumoPedido = () => {
+    const { txtEndereco, txtCidade, txtComplemento, txtNumero } = this.state;
+
+    if (txtEndereco.trim().length <= 0) {
+      carrinho.mensagem('Informe o endereço por favor.', 'red');
+      document.getElementById('txtEndereco').focus();
+    } else if (txtCidade.trim().length <= 0) {
+      carrinho.mensagem('Informe a cidade por favor.', 'red');
+      document.getElementById('txtCidade').focus();
+    } else if (txtComplemento.trim().length <= 0) {
+      carrinho.mensagem('Informe o complemento por favor.', 'red');
+      document.getElementById('txtComplemento').focus();
+    } else if (txtNumero.trim().length <= 0) {
+      carrinho.mensagem('Informe o número por favor.', 'red');
+      document.getElementById('txtNumero').focus();
+    } else {
+      carrinho.carregarEtapa(3);
+    }
+  };
+
   render() {
     const {
       valorCarrinho,
@@ -343,7 +363,7 @@ class ModalCarrinho extends Component {
             <a onClick={() => this.carregarEndereco()} className="btn btn-yellow float-right" id="btnEtapaPedido">
               Continuar
             </a>
-            <a onClick={() => carrinho.carregarEtapa(3)} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
+            <a onClick={() => this.resumoPedido()} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
               Revisar pedido
             </a>
             <a className="btn btn-yellow float-right hidden" id="btnEtapaResumo">
