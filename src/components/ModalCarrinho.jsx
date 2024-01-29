@@ -22,7 +22,7 @@ class ModalCarrinho extends Component {
     const { meuCarrinho } = this.context;
 
     const novoValorCarrinho = meuCarrinho.reduce((total, item) => total + item.price * item.quantidade, 0);
-  
+
     if (novoValorCarrinho !== prevState.valorCarrinho) {
       this.setState({
         valorCarrinho: novoValorCarrinho,
@@ -37,9 +37,9 @@ class ModalCarrinho extends Component {
 
   handleClickAumentarQuantidade = (id) => {
     const { setQntdItens, qntdItens, meuCarrinho } = this.context;
-    meuCarrinho.forEach((e) => e.id === id ? e.quantidade += 1: e);
+    meuCarrinho.forEach((e) => e.id === id ? e.quantidade += 1 : e);
     setQntdItens(qntdItens + 1);
-    
+
     const getElement = document.getElementById(`qntd-carrinho-${id}`);
     const qntdAtual = parseInt(getElement.textContent) + 1;
     getElement.textContent = qntdAtual;
@@ -48,7 +48,7 @@ class ModalCarrinho extends Component {
   handleClickDiminuirQuantidade = (id) => {
     const { setQntdItens, qntdItens, meuCarrinho } = this.context;
     const getElement = document.getElementById(`qntd-carrinho-${id}`);
-    
+
     if (getElement.textContent > 1) {
       meuCarrinho.forEach((e) => {
         if (e.id === id) {
@@ -87,25 +87,25 @@ class ModalCarrinho extends Component {
     const { txtCEP } = this.state;
     const cep = txtCEP.trim().replace(/\D/g, '');
     const validaCEP = /^[0-9]{8}$/;
-  
+
     if (validaCEP.test(cep)) {
       const API = `https://viacep.com.br/ws/${cep}/json`;
-  
+
       try {
         const response = await fetch(API);
-  
+
         if (!response.ok) {
           throw new Error(`Erro na requisição: ${response.status}`);
         }
-  
+
         const data = await response.json();
-  
+
         if (data.erro) {
           throw new Error('CEP não encontrado');
         }
-  
+
         const { bairro, logradouro, localidade, uf } = data;
-  
+
         this.setState({
           txtCidade: localidade,
           ddlUf: uf,
@@ -157,9 +157,9 @@ class ModalCarrinho extends Component {
     const { meuCarrinho } = this.context;
 
     return (
-      
+
       <div className="modal-full animated fadeIn hidden" id="modalCarrinho">
-        
+
         <div className="m-header">
           <div className="container">
             <a className="btn btn-white btn-sm float-right" onClick={() => carrinho.abrirCarrinho(false)}>
@@ -182,22 +182,22 @@ class ModalCarrinho extends Component {
             <div id="itensCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
               {
                 meuCarrinho.length > 0 ? meuCarrinho.map(({ id, img, name, price, quantidade }) => (
-                <div className="col-12 item-carrinho" id={id}>
-                  <div className="img-produto">
-                    <img src={img} alt="" />
+                  <div className="col-12 item-carrinho" id={id}>
+                    <div className="img-produto">
+                      <img src={img} alt="" />
+                    </div>
+                    <div className="dados-produto">
+                      <p className="title-produto"><b>{name}</b></p>
+                      <p className="price-produto"><b>R$ {price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b></p>
+                    </div>
+                    <div className="add-carrinho">
+                      <span className="btn-menos" onClick={() => this.handleClickDiminuirQuantidade(id)}><i className="fas fa-minus"></i></span>
+                      <span className="add-numero-itens" id={`qntd-carrinho-${id}`}>{quantidade}</span>
+                      <span className="btn-mais" onClick={() => this.handleClickAumentarQuantidade(id)}><i className="fas fa-plus"></i></span>
+                      <span className="btn btn-remove" onClick={() => this.handleClickRemoverItem(id)}><i className="fa fa-times"></i></span>
+                    </div>
                   </div>
-                  <div className="dados-produto">
-                    <p className="title-produto"><b>{name}</b></p>
-                    <p className="price-produto"><b>R$ {price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b></p>
-                  </div>
-                  <div className="add-carrinho">
-                    <span className="btn-menos" onClick={() => this.handleClickDiminuirQuantidade(id)}><i className="fas fa-minus"></i></span>
-                    <span className="add-numero-itens" id={`qntd-carrinho-${id}`}>{quantidade}</span>
-                    <span className="btn-mais" onClick={() => this.handleClickAumentarQuantidade(id)}><i className="fas fa-plus"></i></span>
-                    <span className="btn btn-remove" onClick={() => this.handleClickRemoverItem(id)}><i className="fa fa-times"></i></span>
-                  </div>
-                </div>
-                )): <p className="carrinho-vazio"><i className="fa fa-shopping-bag"></i>Seu carrinho está vazio.</p>
+                )) : <p className="carrinho-vazio"><i className="fa fa-shopping-bag"></i>Seu carrinho está vazio.</p>
               }
 
             </div>
@@ -298,24 +298,25 @@ class ModalCarrinho extends Component {
 
               <div className="col-12">
                 <div className="row" id="listaItensResumo">
-
-                  <div className="col-12 item-carrinho resumo">
-                    <div className="img-produto-resumo">
-                      <img src={imgProduto} alt='' />
-                    </div>
-                    <div className="dados-produto">
-                      <p className="title-produto-resumo">
-                        <b>Nome do produto</b>
-                      </p>
-                      <p className="price-produto-resumo">
-                        <b>R$ 100,00</b>
-                      </p>
-                    </div>
-                    <p className="quantidade-produto-resumo">
-                      x <b>3</b>
-                    </p>
-                  </div>
-
+                  {
+                    meuCarrinho.map(({ img, name, price, quantidade }) => (
+                      <div className="col-12 item-carrinho resumo">
+                        <div className="img-produto-resumo">
+                          <img src={img} alt='' />
+                        </div>
+                        <div className="dados-produto">
+                          <p className="title-produto-resumo">
+                            <b>{name}</b>
+                          </p>
+                          <p className="price-produto-resumo">
+                            <b>R$ {price.toFixed(2).replace('.', ',')}</b>
+                          </p>
+                        </div>
+                        <p className="quantidade-produto-resumo">
+                          x <b>{quantidade}</b>
+                        </p>
+                      </div>
+                    ))}
                 </div>
               </div>
 
@@ -331,10 +332,10 @@ class ModalCarrinho extends Component {
                 </div>
                 <div className="dados-produto">
                   <p className="texto-endereco">
-                    <b id="resumoEndereco">Av. Severino Clemente de Arruda</b>
+                    <b id="resumoEndereco">{txtEndereco}</b>
                   </p>
                   <p className="cidade-endereco" id="cidadeEndereco">
-                    Cidade-Surubim / 55750000
+                    Cidade-{txtCidade} / {txtCEP.trim().replace(/\D/g, '')}
                   </p>
                 </div>
               </div>
