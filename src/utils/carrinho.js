@@ -85,13 +85,14 @@ const abrirCarrinho = (abrir) => {
   }
 };
 
-const mensagem = (texto, cor = 'red', tempo = 3500) => {
-  const msg = `<div class="animated fadeInDown toast ${cor}">${texto}</div>`;
+const mensagem = (texto, cor = 'red', tempo = 4000) => {
+  let id = Math.floor(Date.now() * Math.random()).toString();
+  const msg = `<div id="msg-${id}" class="animated fadeInDown toast ${cor}">${texto}</div>`;
 
   document.querySelector('#container-mensagens').innerHTML += msg;
 
   setTimeout(() => {
-    document.querySelector("#container-mensagens").innerHTML = '';
+    document.querySelector(`#msg-${id}`).remove();
   }, tempo);
 };
 
