@@ -3,7 +3,11 @@ import BannerIMG from '../img/burguer.png';
 import '../css/bootstrap.min.css';
 
 class Banner extends Component {
+  state = {
+    celularEmpresa: '5581998902308'
+  }
   render() {
+    const { celularEmpresa } = this.state;
     return (
       <section className="banner">
         <div className="container">
@@ -18,7 +22,7 @@ class Banner extends Component {
                   <a className="btn btn-yellow mt-4 mr-3">
                     Ver cardápio
                   </a>
-                  <a href="#" className="btn btn-white btn-icon-left mt-4" id="btnLigar">
+                  <a href={`tel:${celularEmpresa}`} className="btn btn-white btn-icon-left mt-4" id="btnLigar">
                     <span className="icon-left">
                       <i className="fa fa-phone"></i>
                     </span>
