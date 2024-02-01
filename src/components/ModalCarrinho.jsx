@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import carrinho from '../utils/carrinho';
-import imgProduto from '../img/cardapio/burguers/Gramercy-Tavern-Burger-and-Kielbasa-Kit-6.4.21-72ppi-1x1-15.jpg';
 import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 
 class ModalCarrinho extends Component {
   static contextType = QntdItensCarrinho;
 
   state = {
+    celularEmpresa: '5581998902308',
     valorCarrinho: 0,
     valorEntrega: 5,
     txtCEP: '',
@@ -16,6 +16,7 @@ class ModalCarrinho extends Component {
     txtCidade: '',
     txtComplemento: '',
     ddlUf: '',
+    URL: '',
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -83,6 +84,46 @@ class ModalCarrinho extends Component {
     carrinho.carregarEtapa(2)
   };
 
+  finalizarPedido = () => {
+    const {
+      valorCarrinho,
+      valorEntrega,
+      txtCEP,
+      txtEndereco,
+      txtBairro,
+      txtNumero,
+      txtCidade,
+      txtComplemento,
+      ddlUf,
+      celularEmpresa,
+    } = this.state;
+    const { meuCarrinho } = this.context;
+    if (meuCarrinho.length > 0) {
+      let itens = '';
+
+      meuCarrinho.forEach((item, i) => {
+        itens += `*${item.quantidade}x* ${item.name} ....... R$ ${item.price.toFixed(2).replace('.', ',')} \n`
+
+        if ((i + 1) === meuCarrinho.length) {
+          const texto = `Olá! gostaria de fazer um pedido:
+*Itens do pedido:*
+
+${itens}
+*Endereço de entrega:*
+${txtEndereco}, ${txtNumero}, ${txtBairro}
+${txtCidade}-${ddlUf} / ${txtCEP} ${txtComplemento}
+
+*Total (com entrega): R$ ${(valorCarrinho + valorEntrega).toFixed(2).replace('.', ',')}*`;
+
+          const encode = encodeURI(texto);
+          const URL = `https://wa.me/${celularEmpresa}?text=${encode}`;
+          this.setState({ URL: URL });
+          console.log(texto);
+        }
+      })
+    }
+  };
+
   handleClickBuscarCep = async () => {
     const { txtCEP } = this.state;
     const cep = txtCEP.trim().replace(/\D/g, '');
@@ -115,10 +156,10 @@ class ModalCarrinho extends Component {
 
         document.getElementById('txtEndereco').focus();
       } catch (error) {
-        carrinho.mensagem(`Erro ao buscar CEP: ${error.message}`, 'red');
+        carrinho.mensagem(`ERROR: ${error.message}, mas não se preocupe, esse campo não é obrigatório.`, 'yellow');
       }
     } else {
-      carrinho.mensagem('CEP inválido. Mas não se preocupe, este campo é opcional.', 'yellow');
+      carrinho.mensagem('CEP inválido. Mas não se preocupe, esse campo não é obrigatório.', 'yellow');
     }
   };
 
@@ -138,6 +179,7 @@ class ModalCarrinho extends Component {
       carrinho.mensagem('Informe o número por favor.', 'red');
       document.getElementById('txtNumero').focus();
     } else {
+      this.finalizarPedido();
       carrinho.carregarEtapa(3);
     }
   };
@@ -153,6 +195,7 @@ class ModalCarrinho extends Component {
       txtCidade,
       txtComplemento,
       ddlUf,
+      URL,
     } = this.state;
     const { meuCarrinho } = this.context;
 
@@ -368,7 +411,7 @@ class ModalCarrinho extends Component {
             <a onClick={() => this.resumoPedido()} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
               Revisar pedido
             </a>
-            <a className="btn btn-yellow float-right hidden" id="btnEtapaResumo">
+            <a href={URL} target='_blank' className="btn btn-yellow float-right hidden" id="btnEtapaResumo">
               Enviar pedido
             </a>
 
