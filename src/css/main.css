@@ -778,6 +778,12 @@ select.form-control {
   transition: all 1.5s;
 }
 
+.element-cart-hidden {
+  opacity: 0;
+  filter: blur(10px);
+  transition: all 1s;
+}
+
 .element-show {
   opacity: 1;
   filter: blur(0);

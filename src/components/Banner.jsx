@@ -46,11 +46,11 @@ class Banner extends Component {
           <div className="row">
             <div className="col-12 col-lg-6 col-md-6 col-sm-12 col-one">
               <div id="textBanner" ref={this.textBannerRef} className="d-flex text-banner text-banner-hidden">
-                <h1 className="wow fadeInLeft"><b>Escolha sua comida <b className="color-primary">favorita.</b></b></h1>
-                <p className="wow fadeInLeft delay-02s">
+                <h1><b>Escolha sua comida <b className="color-primary">favorita.</b></b></h1>
+                <p>
                   Aproveite nosso cardápio! Escolha o que desejar e receba em sua casa de forma rápida e segura.
                 </p>
-                <div className="wow fadeIn delay-05s">
+                <div>
                   <a className="btn btn-yellow mt-4 mr-3">
                     Ver cardápio
                   </a>
@@ -63,25 +63,25 @@ class Banner extends Component {
                 </div>
               </div>
               <div id="textBanner" className="text-banner-hidden" ref={this.btnSocialRef}>
-                <a href="https://www.instagram.com/johnnynwt/" target="_blank" className="btn btn-sm btn-white btn-social mt-4 mr-3 wow fadeIn delay-05s">
+                <a href="https://www.instagram.com/johnnynwt/" target="_blank" className="btn btn-sm btn-white btn-social mt-4 mr-3">
                   <i className="fab fa-instagram"></i>
                 </a>
-                <a className="btn btn-sm btn-white btn-social mt-4 mr-3 wow fadeIn delay-05s">
+                <a className="btn btn-sm btn-white btn-social mt-4 mr-3">
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                <a className="btn btn-sm btn-white btn-social mt-4 wow fadeIn delay-05s">
+                <a className="btn btn-sm btn-white btn-social mt-4">
                   <i className="fab fa-whatsapp"></i>
                 </a>
 
               </div>
             </div>
 
-            <div ref={this.cardBannerRef} className="col-6 no-mobile card-banner-hidden">
-              <div className="card-banner wow fadeIn delay-02s"></div>
-              <div className="d-flex img-banner wow fadeIn delay-05s">
+            <div  className="col-6 no-mobile ">
+              <div className="card-banner"></div>
+              <div ref={this.cardBannerRef} className="d-flex img-banner card-banner-hidden">
                 <img src={ BannerIMG } alt='' />
               </div>
-              <div className="card card-case wow fadeInRight delay-07s">
+              <div className="card card-case">
                 "Entrega rápida e funcionários simpáticos.
                 <br/>A comida chegou quente e <br/>
                   muito saborosa!"

@@ -1,9 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import carrinho from '../utils/carrinho';
 import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 
 class ModalCarrinho extends Component {
+  constructor (props) {
+    super(props);
+    this.localEntregaRef = createRef();
+    this.resumoCartRef = createRef();
+  }
+
   static contextType = QntdItensCarrinho;
+
+  componentDidMount() {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('element-show');
+        } else {
+          entry.target.classList.remove('element-show');
+        }
+      });
+    });
+
+    if (this.localEntregaRef.current) {
+      intersectionObserver.observe(this.localEntregaRef.current);
+    }
+
+    if (this.resumoCartRef.current) {
+      intersectionObserver.observe(this.resumoCartRef.current);
+    }
+  };
+
 
   state = {
     celularEmpresa: '5581998902308',
@@ -222,7 +249,7 @@ ${txtCidade}-${ddlUf} / ${txtCEP} ${txtComplemento}
         <div className="m-body">
           <div className="container">
 
-            <div id="itensCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
+            <div id="itensCarrinho" className="row mr-0 ml-0 hidden">
               {
                 meuCarrinho.length > 0 ? meuCarrinho.map(({ id, img, name, price, quantidade }) => (
                   <div className="col-12 item-carrinho" id={id}>
@@ -245,7 +272,7 @@ ${txtCidade}-${ddlUf} / ${txtCEP} ${txtComplemento}
 
             </div>
 
-            <div id="localEntrega" className="row mr-0 ml-0 animated fadeIn hidden">
+            <div ref={this.localEntregaRef} id="localEntrega" className="row mr-0 ml-0 element-cart-hidden hidden">
 
               <div className="col-12 col-lg-4 col-md-4 col-sm-12">
                 <div className="form-group container-cep">
@@ -332,7 +359,7 @@ ${txtCidade}-${ddlUf} / ${txtCEP} ${txtComplemento}
 
             </div>
 
-            <div id="resumoCarrinho" className="row mr-0 ml-0 animated fadeIn hidden">
+            <div ref={this.resumoCartRef} id="resumoCarrinho" className="row mr-0 ml-0 element-cart-hidden hidden">
               <div className="col-12">
                 <p className="title-carrinho mt-4">
                   <b>Itens do pedido:</b>

@@ -6,7 +6,7 @@ import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 class Cardapio extends Component {
   constructor(props) {
     super(props);
-    this.cardRef = createRef();
+
     this.cardapioRef = createRef();
     this.categoriaRef = createRef();
   }
@@ -34,14 +34,10 @@ class Cardapio extends Component {
       intersectionObserver.observe(this.cardapioRef.current);
     }
 
-    if (this.cardRef.current) {
-      intersectionObserver.observe(this.cardRef.current);
-    }
-
     if (this.categoriaRef.current) {
       intersectionObserver.observe(this.categoriaRef.current);
     }
-  }
+  };
 
   componentDidUpdate() {
     this.atualizarCarrinho();
@@ -68,21 +64,6 @@ class Cardapio extends Component {
       itensExibidos: prevState.itensExibidos + 4,
     }));
   };
-
-  // updateVisibility = () => {
-  //   const { itensExibidos } = this.state;
-  //   const itens = document.querySelectorAll('.card-item');
-  
-  //   itens.forEach((item, index) => {
-  //     if (index < itensExibidos) {
-  //       item.classList.add('card-show');
-  //       item.classList.remove('card-hidden');
-  //     } else {
-  //       item.classList.remove('card-show');
-  //       item.classList.add('card-hidden');
-  //     }
-  //   });
-  // };
 
   handleClickDiminuirQuantidade = (id) => {
     const getElement = document.getElementById(`qntd-${id}`);
@@ -184,7 +165,7 @@ class Cardapio extends Component {
               <div className="col-12 col-one">
                 <div className="row" id="itensCardapio">
                   {
-                    itensExibidosAtualizados.map(({ id, img, name, price }, index) => (
+                    itensExibidosAtualizados.map(({ id, img, name, price }, _index) => (
                       <div className="col-12 col-lg-3 col-md-3 col-sm-6 mb-5" key={id}>
                         <div className="card card-item">
                           <div className="img-produto">
