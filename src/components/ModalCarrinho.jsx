@@ -264,7 +264,7 @@ ${txtCidade}-${ddlUf} / ${txtCEP} ${txtComplemento}
                       <span className="btn-menos" onClick={() => this.handleClickDiminuirQuantidade(id)}><i className="fas fa-minus"></i></span>
                       <span className="add-numero-itens" id={`qntd-carrinho-${id}`}>{quantidade}</span>
                       <span className="btn-mais" onClick={() => this.handleClickAumentarQuantidade(id)}><i className="fas fa-plus"></i></span>
-                      <span className="btn btn-remove" onClick={() => this.handleClickRemoverItem(id)}><i className="fa fa-times"></i></span>
+                      <span className="btn btn-remove no-mobile" onClick={() => this.handleClickRemoverItem(id)}><i className="fa fa-times"></i></span>
                     </div>
                   </div>
                 )) : <p className="carrinho-vazio"><i className="fa fa-shopping-bag"></i>Seu carrinho está vazio.</p>

@@ -190,7 +190,7 @@ class Cardapio extends Component {
                 </div>
               </div>
 
-              <div className={`col-12 col-one text-center wow fadeInUp ${mostrarBotaoVerMais ? '' : 'hidden'}`}>
+              <div className={`col-12 col-one text-center ${mostrarBotaoVerMais ? '' : 'hidden'}`}>
                 <a id="btnVerMais" className="btn btn-white btn-sm" onClick={this.handleClickVerMais}>
                   Ver mais
                 </a>

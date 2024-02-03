@@ -65,15 +65,15 @@ class Depoimentos extends Component {
           <div className="row">
 
             <div ref={this.bannerRef} className="col-5 no-mobile text-center text-banner-hidden">
-              <div className="card-depoimentos wow fadeIn"></div>
-              <div className="d-flex img-banner wow fadeInLeft delay-02s">
+              <div className="card-depoimentos"></div>
+              <div className="d-flex img-banner">
                 <img src={ imgPizza } alt="" />
               </div>
             </div>
 
             <div ref={this.txtDepoimentoRef} className="col-12 col-lg-7 col-md-7 col-sm-12 col-one element-hidden">
-              <span className="hint-title wow fadeIn"><b>Depoimentos</b></span>
-              <h1 className="title wow fadeIn">
+              <span className="hint-title"><b>Depoimentos</b></span>
+              <h1 className="title">
                 <b>O que dizem sobre nós?</b>
               </h1>
               <div className="mb-5">
