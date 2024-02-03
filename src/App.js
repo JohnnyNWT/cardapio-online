@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import ModalCarrinho from "./components/ModalCarrinho";
 
 import './css/main.css'
+import './css/responsivo.css'
 
 class App extends Component {
   render() {

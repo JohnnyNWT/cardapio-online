@@ -78,8 +78,8 @@ class Banner extends Component {
 
             <div  className="col-6 no-mobile ">
               <div className="card-banner"></div>
-              <div ref={this.cardBannerRef} className="d-flex img-banner card-banner-hidden">
-                <img src={ BannerIMG } alt='' />
+              <div className="d-flex img-banner">
+                <img ref={this.cardBannerRef} className="card-banner-hidden" src={ BannerIMG } alt='' />
               </div>
               <div className="card card-case">
                 "Entrega rápida e funcionários simpáticos.

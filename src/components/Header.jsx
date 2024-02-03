@@ -24,7 +24,7 @@ class Header extends Component {
               </span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul className="navbar-nav ml-auto mr-auto wow fadeIn">
+              <ul className="navbar-nav ml-auto mr-auto">
                 <li className="nav-item">
                   <a href="#servicos" className="nav-link"><b>Serviços</b></a>
                 </li>
@@ -35,7 +35,7 @@ class Header extends Component {
                   <a href="#depoimentos" className="nav-link"><b>Depoimentos</b></a>
                 </li>
               </ul>
-              <a className="btn btn-white btn-icon wow fadeIn" onClick={() => carrinho.abrirCarrinho(true)}>
+              <a className="btn btn-white btn-icon" onClick={() => carrinho.abrirCarrinho(true)}>
                 Meu carrinho <span className="icon">
                   <div className={`container-total-carrinho badge-total-carrinho ${ qntdItens === 0 ? 'hidden' : '' }`}>{qntdItens}</div>
                   <i className="fa fa-shopping-bag"></i>
