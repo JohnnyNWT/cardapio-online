@@ -1,11 +1,43 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import BannerIMG from '../img/burguer.png';
 import '../css/bootstrap.min.css';
 
 class Banner extends Component {
+  constructor(props) {
+    super(props);
+    this.textBannerRef = createRef();
+    this.btnSocialRef = createRef();
+    this.cardBannerRef = createRef();
+  }
+
   state = {
     celularEmpresa: '5581998902308'
   }
+
+  componentDidMount() {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('element-show');
+        } else {
+          entry.target.classList.remove('element-show');
+        }
+      })
+    });
+
+    if (this.textBannerRef.current) {
+      intersectionObserver.observe(this.textBannerRef.current);
+    }
+
+    if (this.btnSocialRef.current) {
+      intersectionObserver.observe(this.btnSocialRef.current);
+    }
+
+    if (this.cardBannerRef.current) {
+      intersectionObserver.observe(this.cardBannerRef.current);
+    }
+  }
+
   render() {
     const { celularEmpresa } = this.state;
     return (
@@ -13,7 +45,7 @@ class Banner extends Component {
         <div className="container">
           <div className="row">
             <div className="col-12 col-lg-6 col-md-6 col-sm-12 col-one">
-              <div className="d-flex text-banner">
+              <div id="textBanner" ref={this.textBannerRef} className="d-flex text-banner text-banner-hidden">
                 <h1 className="wow fadeInLeft"><b>Escolha sua comida <b className="color-primary">favorita.</b></b></h1>
                 <p className="wow fadeInLeft delay-02s">
                   Aproveite nosso cardápio! Escolha o que desejar e receba em sua casa de forma rápida e segura.
@@ -30,18 +62,21 @@ class Banner extends Component {
                   </a>
                 </div>
               </div>
-              <a href="https://www.instagram.com/johnnynwt/" target="_blank" className="btn btn-sm btn-white btn-social mt-4 mr-3 wow fadeIn delay-05s">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a className="btn btn-sm btn-white btn-social mt-4 mr-3 wow fadeIn delay-05s">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a className="btn btn-sm btn-white btn-social mt-4 wow fadeIn delay-05s">
-                <i className="fab fa-whatsapp"></i>
-              </a>
+              <div id="textBanner" className="text-banner-hidden" ref={this.btnSocialRef}>
+                <a href="https://www.instagram.com/johnnynwt/" target="_blank" className="btn btn-sm btn-white btn-social mt-4 mr-3 wow fadeIn delay-05s">
+                  <i className="fab fa-instagram"></i>
+                </a>
+                <a className="btn btn-sm btn-white btn-social mt-4 mr-3 wow fadeIn delay-05s">
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a className="btn btn-sm btn-white btn-social mt-4 wow fadeIn delay-05s">
+                  <i className="fab fa-whatsapp"></i>
+                </a>
+
+              </div>
             </div>
 
-            <div className="col-6 no-mobile">
+            <div ref={this.cardBannerRef} className="col-6 no-mobile card-banner-hidden">
               <div className="card-banner wow fadeIn delay-02s"></div>
               <div className="d-flex img-banner wow fadeIn delay-05s">
                 <img src={ BannerIMG } alt='' />

@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import MENU from '../utils/dados';
 import carrinho from '../utils/carrinho';
 import { QntdItensCarrinho } from '../context/QntdItensCarrinho';
 
 class Cardapio extends Component {
+  constructor(props) {
+    super(props);
+    this.cardRef = createRef();
+    this.cardapioRef = createRef();
+    this.categoriaRef = createRef();
+  }
+
   static contextType = QntdItensCarrinho;
 
   state = {
@@ -11,6 +18,30 @@ class Cardapio extends Component {
     arrCategoriaCardapio: MENU['burgers'],
     itensExibidos: 8,
   };
+
+  componentDidMount() {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('element-show');
+        } else {
+          entry.target.classList.remove('element-show');
+        }
+      });
+    });
+
+    if (this.cardapioRef.current) {
+      intersectionObserver.observe(this.cardapioRef.current);
+    }
+
+    if (this.cardRef.current) {
+      intersectionObserver.observe(this.cardRef.current);
+    }
+
+    if (this.categoriaRef.current) {
+      intersectionObserver.observe(this.categoriaRef.current);
+    }
+  }
 
   componentDidUpdate() {
     this.atualizarCarrinho();
@@ -37,6 +68,21 @@ class Cardapio extends Component {
       itensExibidos: prevState.itensExibidos + 4,
     }));
   };
+
+  // updateVisibility = () => {
+  //   const { itensExibidos } = this.state;
+  //   const itens = document.querySelectorAll('.card-item');
+  
+  //   itens.forEach((item, index) => {
+  //     if (index < itensExibidos) {
+  //       item.classList.add('card-show');
+  //       item.classList.remove('card-hidden');
+  //     } else {
+  //       item.classList.remove('card-show');
+  //       item.classList.add('card-hidden');
+  //     }
+  //   });
+  // };
 
   handleClickDiminuirQuantidade = (id) => {
     const getElement = document.getElementById(`qntd-${id}`);
@@ -66,17 +112,6 @@ class Cardapio extends Component {
       } else {
         setMeuCarrinho(meuCarrinho.map((e) => e.id === id ? { ...e, quantidade: e.quantidade + quantidade } : e));
       }
-
-      // if (!existe) {
-      //   this.setState(() => ({
-      //     meuCarrinho: [...meuCarrinho, { ...novoItem, quantidade }],
-      //   }), () => this.atualizarCarrinho());
-      // } else {
-      //   this.setState(() => ({
-      //     meuCarrinho: meuCarrinho.map((e) => e.id === id ? { ...e, quantidade: e.quantidade + quantidade } : e),
-      //   }), () => this.atualizarCarrinho());
-      // }
-
       carrinho.mensagem('Item adicionado ao carrinho', 'green');
       document.getElementById(`qntd-${id}`).textContent = 0;
     };
@@ -84,7 +119,6 @@ class Cardapio extends Component {
 
   atualizarCarrinho = () => {
     const { setQntdItens, meuCarrinho } = this.context;
-    // console.log(meuCarrinho);
 
     if (meuCarrinho.length > 0) {
       document.querySelector('.botao-carrinho').classList.remove('hidden');
@@ -116,14 +150,14 @@ class Cardapio extends Component {
           <div className="container">
             <div className="row">
 
-              <div className="col-12 col-one text-center mb-5 wow fadeIn">
+              <div ref={this.cardapioRef} className="col-12 col-one text-center mb-5 element-hidden">
                 <span className="hint-title"><b>Cardápio</b></span>
                 <h1 className="title">
                   <b>Conheça o nosso cardápio</b>
                 </h1>
               </div>
 
-              <div className="col-12 col-one container-menu wow fadeInUp">
+              <div ref={this.categoriaRef} className="col-12 col-one container-menu element-hidden">
                 <a id="menu-burgers" className="btn btn-white btn-sm mr-3 active" onClick={this.handleClickRenderCardapio}>
                   <i id="menu-burgers" className="fas fa-hamburger"></i>&nbsp; Burgers
                 </a>
@@ -150,8 +184,8 @@ class Cardapio extends Component {
               <div className="col-12 col-one">
                 <div className="row" id="itensCardapio">
                   {
-                    itensExibidosAtualizados.map(({ id, img, name, price }) => (
-                      <div className="col-12 col-lg-3 col-md-3 col-sm-6 mb-5 animated fadeInUp" key={id}>
+                    itensExibidosAtualizados.map(({ id, img, name, price }, index) => (
+                      <div className="col-12 col-lg-3 col-md-3 col-sm-6 mb-5" key={id}>
                         <div className="card card-item">
                           <div className="img-produto">
                             <img src={img} />

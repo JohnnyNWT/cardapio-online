@@ -238,11 +238,12 @@ a.navbar-brand {
 }
 
 .container-menu {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .card-item {
   height: 360px;
+  transition: all .2s ease-in-out;
 }
 
 .card-item .img-produto img {
@@ -737,8 +738,6 @@ select.form-control {
   background-color: #FFB200;
 }
 
-
-
 .carrinho-vazio {
   margin: 0 auto;
   text-align: center;
@@ -756,4 +755,32 @@ select.form-control {
   margin: 0 auto;
   border-radius: 50px;
   margin-bottom: 10px;
+}
+
+.text-banner-hidden {
+  opacity: 0;
+  filter: blur(15px);
+  transform: translateX(-100%);
+  transition: all 1.5s;
+}
+
+.card-banner-hidden {
+  opacity: 0;
+  filter: blur(15px);
+  transform: translateX(100%);
+  transition: all 1.5s;
+}
+
+.element-hidden {
+  opacity: 0;
+  filter: blur(15px);
+  transform: translateY(100%);
+  transition: all 1.5s;
+}
+
+.element-show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+  transition: all 1.5s;
 }
