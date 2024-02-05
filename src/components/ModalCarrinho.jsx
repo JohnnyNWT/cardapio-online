@@ -431,20 +431,21 @@ ${txtCidade}-${ddlUf} / ${txtCEP} ${txtComplemento}
                 <span className="valor-total"><b id="lblValorTotal">R$ {(valorCarrinho + valorEntrega).toFixed(2).replace('.', ',')}</b></span>
               </p>
             </div>
+              <a onClick={() => this.carregarEndereco()} className="btn btn-yellow float-right" id="btnEtapaPedido">
+                Continuar
+              </a>
+            <div className="btn-carrinho">
+              <a onClick={() => this.resumoPedido()} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
+                Revisar pedido
+              </a>
+              <a href={URL} target='_blank' className="btn btn-yellow float-right hidden" id="btnEtapaResumo">
+                Enviar pedido
+              </a>
+              <a onClick={() => carrinho.carregarEtapa('Voltar')} className="btn btn-white float-right mr-3 hidden" id="btnVoltar">
+                Voltar
+              </a>
 
-            <a onClick={() => this.carregarEndereco()} className="btn btn-yellow float-right" id="btnEtapaPedido">
-              Continuar
-            </a>
-            <a onClick={() => this.resumoPedido()} className="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
-              Revisar pedido
-            </a>
-            <a href={URL} target='_blank' className="btn btn-yellow float-right hidden" id="btnEtapaResumo">
-              Enviar pedido
-            </a>
-
-            <a onClick={() => carrinho.carregarEtapa('Voltar')} className="btn btn-white float-right mr-3 hidden" id="btnVoltar">
-              Voltar
-            </a>
+            </div>
 
           </div>
         </div>

@@ -790,3 +790,10 @@ select.form-control {
   transform: translateX(0);
   transition: all 1.5s;
 }
+
+.btn-carrinho {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  /* border: 1px solid blue; */
+}
