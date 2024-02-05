@@ -762,6 +762,7 @@ select.form-control {
   filter: blur(15px);
   transform: translateX(-100%);
   transition: all 1.5s;
+  margin-bottom: 24px;
 }
 
 .card-banner-hidden {
@@ -789,13 +790,6 @@ select.form-control {
   filter: blur(0);
   transform: translateX(0);
   transition: all 1.5s;
-}
-
-.btn-carrinho {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  /* border: 1px solid blue; */
 }
 
 #btnVerMais {

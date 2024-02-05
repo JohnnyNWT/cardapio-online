@@ -17,7 +17,7 @@ class Banner extends Component {
   componentDidMount() {
     const intersectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if(entry.isIntersecting) {
+        if (entry.isIntersecting) {
           entry.target.classList.add('element-show');
         } else {
           entry.target.classList.remove('element-show');
@@ -51,7 +51,7 @@ class Banner extends Component {
                   Aproveite nosso cardápio! Escolha o que desejar e receba em sua casa de forma rápida e segura.
                 </p>
                 <div>
-                  <a className="btn btn-yellow mt-4 mr-3">
+                  <a href="#cardapio" className="btn btn-yellow mt-4 mr-3">
                     Ver cardápio
                   </a>
                   <a href={`tel:${celularEmpresa}`} className="btn btn-white btn-icon-left mt-4" id="btnLigar">
@@ -72,26 +72,25 @@ class Banner extends Component {
                 <a className="btn btn-sm btn-white btn-social mt-4">
                   <i className="fab fa-whatsapp"></i>
                 </a>
-
               </div>
             </div>
 
-            <div  className="col-6 no-mobile ">
+            <div className="col-6 no-mobile ">
               <div className="card-banner"></div>
               <div className="d-flex img-banner">
-                <img ref={this.cardBannerRef} className="card-banner-hidden" src={ BannerIMG } alt='' />
+                <img ref={this.cardBannerRef} className="card-banner-hidden" src={BannerIMG} alt='' />
               </div>
               <div className="card card-case">
                 "Entrega rápida e funcionários simpáticos.
-                <br/>A comida chegou quente e <br/>
-                  muito saborosa!"
-                  <span className="card-case-name">
-                    <b>Thiago Lopes</b>
-                  </span>
-                </div>
+                <br />A comida chegou quente e <br />
+                muito saborosa!"
+                <span className="card-case-name">
+                  <b>Thiago Lopes</b>
+                </span>
               </div>
             </div>
           </div>
+        </div>
       </section>
     );
   }

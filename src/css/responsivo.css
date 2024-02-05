@@ -179,4 +179,10 @@
   .modal-full .form-control {
     font-size: 16px;
   }
+
+  .btn-carrinho {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
 }
